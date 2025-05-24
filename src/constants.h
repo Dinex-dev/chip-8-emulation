@@ -1,0 +1,13 @@
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
+
+#define MEMORY_SIZE 4096
+#define NUM_REGISTERS 16
+#define STACK_SIZE 16
+#define DISPLAY_WIDTH 64
+#define DISPLAY_HEIGHT 32
+#define NUM_KEYS 16
+#define ROM_START_ADDRESS 0x200
+#define DISPLAY_SCALE 10
+
+#endif // CONSTANTS_H
