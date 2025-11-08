@@ -1,7 +1,7 @@
 #include "constants.h"
 #include <stdbool.h>
 
-const unsigned int FONTSET_SIZE = 80;
+#define FONTSET_SIZE 80
 
 unsigned short fontset[FONTSET_SIZE] =
     {

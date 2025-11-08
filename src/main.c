@@ -113,7 +113,6 @@ void start_emulator()
             if (sp > 0)
             {
                 pc = pop_stack();
-                pc += 2; // Move to the next instruction after return
             }
             else
             {
@@ -338,7 +337,7 @@ void start_emulator()
             }
             if (!key_pressed)
             {
-                pc -= 2; // Skip next instruction
+                pc -= 2; // Go back to repeat this instruction until key is pressed
             }
             break;
         case 0x0015:
@@ -351,14 +350,6 @@ void start_emulator()
             break;
         case 0x001E:
             // Set I = I + Vx
-            if (I + V[x] > 0xFFF)
-            {
-                V[0xF] = 1; // Set carry flag
-            }
-            else
-            {
-                V[0xF] = 0;
-            }
             I += V[x];
             break;
         case 0x0029:
@@ -389,6 +380,10 @@ void start_emulator()
             fprintf(stderr, "Unknown opcode: 0x%04X\n", opcode);
             break;
         }
+        break; // break for 0xF000 case
+    default:
+        fprintf(stderr, "Unknown opcode: 0x%04X\n", opcode);
+        break;
     }
 }
 
@@ -418,6 +413,9 @@ int main(int argc, char *argv[])
     {
         SDL_Delay(16); // ~60 FPS
 
+        // Decrement timers at 60Hz
+        if (delay > 0) delay--;
+        if (sound > 0) sound--;
 
         start_emulator();
 
